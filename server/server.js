@@ -15,7 +15,17 @@ app.use(express.static(publicPath)); //serve the static files such as images , c
 io.on('connection', (socket) => {
     console.log('New user conected');
 
+    socket.emit('newMessage' , {
+        from : 'Admin',
+        text : 'Welcome to the chat app'
+    })
 
+    socket.broadcast.emit('newMessage' , {
+        from : 'Admin' , 
+        text : 'Neew user joined!',
+        createAt : new Date().getTime()
+    })
+    
     socket.on('createMessage' , function(Message){
         console.log('createMessage' , Message);
 
@@ -24,6 +34,11 @@ io.on('connection', (socket) => {
             text : Message.text,
             createAt : new Date().getTime()
         })
+        // socket.broadcast('newMessage' , {
+        //     from : Message.from,
+        //     text : Message.text,
+        //     createAt : new Date().getTime()
+        // }) 
     })
 
 
