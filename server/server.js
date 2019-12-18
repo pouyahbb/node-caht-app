@@ -19,10 +19,11 @@ io.on('connection', (socket) => {
 
     socket.broadcast.emit('newMessage' , generateMessage('Admin' , 'New user joined'));
 
-    socket.on('createMessage' , function(Message){
+    socket.on('createMessage' , function(Message , callback){
         console.log('createMessage' , Message);
 
         io.emit('newMessage' , generateMessage(Message.from , Message.text))
+        callback('This is from the server');
         // socket.broadcast('newMessage' , {
         //     from : Message.from,
         //     text : Message.text,
@@ -39,3 +40,5 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
     console.log(`Server is up on ${port}`);
 })
+
+//112
