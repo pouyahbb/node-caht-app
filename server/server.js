@@ -15,15 +15,18 @@ app.use(express.static(publicPath)); //serve the static files such as images , c
 io.on('connection', (socket) => {
     console.log('New user conected');
 
-    socket.emit('newMessage' , {
-        from : 'elmira',
-        text : "Hey. what's up?",
-        createAt : 1241
-    });
 
     socket.on('createMessage' , function(Message){
         console.log('createMessage' , Message);
+
+        io.emit('newMessage' , {
+            from : Message.from,
+            text : Message.text,
+            createAt : new Date().getTime()
+        })
     })
+
+
 
     socket.on('disconnect' , ()=>{
         console.log('User was disconnected');
