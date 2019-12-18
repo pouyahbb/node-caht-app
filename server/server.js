@@ -4,7 +4,7 @@ const socketIO = require('socket.io');
 let http = require('http')
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
-
+const {generateMessage} = require('./utils/message');
 let app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
@@ -14,26 +14,15 @@ app.use(express.static(publicPath)); //serve the static files such as images , c
 
 io.on('connection', (socket) => {
     console.log('New user conected');
+ 
+    socket.emit('newMessage' , generateMessage('Admin' , 'Welcome to the chat app'));
 
-    socket.emit('newMessage' , {
-        from : 'Admin',
-        text : 'Welcome to the chat app'
-    })
+    socket.broadcast.emit('newMessage' , generateMessage('Admin' , 'New user joined'));
 
-    socket.broadcast.emit('newMessage' , {
-        from : 'Admin' , 
-        text : 'Neew user joined!',
-        createAt : new Date().getTime()
-    })
-    
     socket.on('createMessage' , function(Message){
         console.log('createMessage' , Message);
 
-        io.emit('newMessage' , {
-            from : Message.from,
-            text : Message.text,
-            createAt : new Date().getTime()
-        })
+        io.emit('newMessage' , generateMessage(Message.from , Message.text))
         // socket.broadcast('newMessage' , {
         //     from : Message.from,
         //     text : Message.text,
