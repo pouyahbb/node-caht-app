@@ -19,17 +19,17 @@ io.on('connection', (socket) => {
 
     socket.broadcast.emit('newMessage' , generateMessage('Admin' , 'New user joined'));
 
-    socket.on('createMessage' , function(Message , callback){
+    socket.on('createMessage' , (Message )=>{
         console.log('createMessage' , Message);
 
-        io.emit('newMessage' , generateMessage(Message.from , Message.text))
-        callback('This is from the server');
+        io.emit('newMessage' , generateMessage(Message.from , Message.text));
+       
         // socket.broadcast('newMessage' , {
         //     from : Message.from,
         //     text : Message.text,
         //     createAt : new Date().getTime()
         // }) 
-    })
+    });
 
 
 
