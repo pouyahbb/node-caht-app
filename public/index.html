@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>chatRoom</title>
+    <link href="css/styles.css" rel="stylesheet">
 </head>
-<body>
-    <p>Welcome to chat app</p>
 
-    <ol id="messages"></ol>
+<body class="chat">
 
-    <form id="message-form">
-        <input name="message" type="text"  placeholder="Write Message" id="input"></input>
-        <button id="button">Send</button>
-    </form>
-    <button id="send-location">Send Location</button>
+    <div class="chat__sidebar">
+        <h3>Peopel</h3>
+        <div id="users"></div>
+    </div>
+
+    <div class="chat__main">
+        <ol id="messages" class="chat__messages"></ol>
+        <div class="chat__footer">
+            <form id="message-form">
+                <input name="message" type="text" placeholder="Write Message" id="input" autofocus autocomplete="off"></input>
+                <button id="button">Send</button>
+            </form>
+            <button id="send-location">Send location</button>
+        </div>
+    </div>
+
+
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="js/libs/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- <script src="js/libs/jquery-3.4.1.min.js"></script> -->
     <script src="js/index.js"></script>
 </body>
+
 </html>
