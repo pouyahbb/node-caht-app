@@ -5,6 +5,24 @@ button:hover {
     padding: 10px
 }
 
+.chat__main ol li{
+   font-size: 25px;
+   border-radius: 5px;
+   padding: 3px;
+   border-bottom: 1px solid #1F4C69;
+   text-align: center;
+}
+.chat__main ol li:nth-child(odd){
+    background-color: #e7e7e71e;
+    color: #1F4C69;
+}
+.chat__main ol li:nth-child(even){
+    background-color:#e7e7e78a ;
+    color: #265f82;
+    
+}
+
+
 .chat__messages,
 .chat__sidebar ul {
     list-style-type: none
