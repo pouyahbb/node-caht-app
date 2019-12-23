@@ -40,9 +40,11 @@ io.on('connection', (socket) => {
     })
 
     socket.on('createMessage' , (Message )=>{
-        console.log('createMessage' , Message);
+        let user = users.getUser(socket.id);
 
-        io.emit('newMessage' , generateMessage(Message.from , Message.text));
+        if(user && isRealString(Message.text)){
+            io.to(user.room).emit('newMessage' , generateMessage(user.name , Message.text));
+        }
        
         // socket.broadcast('newMessage' , {
         //     from : Message.from,
@@ -52,7 +54,10 @@ io.on('connection', (socket) => {
     });
 
     socket.on('createLocationMessage' , (coord)=>{
-        io.emit('newLocationMessage' , generateLocationMessage('Admin' , coord.latitude , coord.longitude));
+        let user = users.getUser(socket.id);
+        if(user){
+            io.to(user.room).emit('newLocationMessage' , generateLocationMessage(user.name , coord.latitude , coord.longitude));
+        }
     })
 
     socket.on('disconnect' , ()=>{
